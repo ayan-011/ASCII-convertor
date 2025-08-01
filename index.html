@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image to ASCII</title>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-900 text-white font-mono">
+  <div class="min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-3xl font-bold mb-6">🖼️ Convert Image to Symbols</h1>
+
+    <input type="file" id="upload" accept="image/*" class="mb-4 text-black" />
+    <canvas id="canvas" class="hidden"></canvas>
+    <pre id="output" class="text-[7px] leading-[6px] p-4 bg-gray-800 rounded max-w-full overflow-auto"></pre>
+
+    <div class="flex gap-4 mt-4">
+      <button onclick="downloadAscii()" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow">
+        💾 Download ASCII Image
+      </button>
+      <button onclick="window.location.href='video.html'" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded shadow">
+        🎬 Go to Custom Video Converter
+      </button>
+    </div>
+  </div>
+
+  <script src="script-image.js"></script>
+  <script>
+    function downloadAscii() {
+      const content = document.getElementById("output").textContent;
+      const blob = new Blob([content], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ascii-image.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
+
+
+
